@@ -23,6 +23,7 @@ import android.content.Loader;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     private static final String USGS = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=5&limit=10";
     ListView earthquakeListView;
     TextView empty;
-    ProgressBar spinner;
+    ProgressBar spinningWheel;
     /**
      * Adapter for the list of earthquakes
      */
@@ -55,8 +56,8 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
 
         // Find a reference to the {@link ListView} in the layout
         earthquakeListView = findViewById(R.id.list);
-        spinner = findViewById(R.id.loading_spinner);
-        spinner.setVisibility(View.VISIBLE);
+        spinningWheel = findViewById(R.id.loading_spinner);
+        spinningWheel.setVisibility(View.VISIBLE);
 
         /**
          * Get the network info
@@ -102,7 +103,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
     public void onLoadFinished(Loader<List<Earthquake>> loader, List<Earthquake> earthquakes) {
 
         Log.i("EarthquakeActivity", "spinning stopped because data is displayed on screen");
-        spinner.setVisibility(View.GONE);
+        spinningWheel.setVisibility(View.GONE);
         // Clear the adapter of previous earthquake data
         mAdapter.clear();
 

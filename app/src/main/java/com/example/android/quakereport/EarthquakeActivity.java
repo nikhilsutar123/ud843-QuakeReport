@@ -52,12 +52,13 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        empty = findViewById(R.id.empty);
-
         // Find a reference to the {@link ListView} in the layout
         earthquakeListView = findViewById(R.id.list);
+
         spinningWheel = findViewById(R.id.loading_spinner);
-        spinningWheel.setVisibility(View.VISIBLE);
+
+
+        empty = findViewById(R.id.empty);
 
         /**
          * Get the network info
@@ -69,6 +70,7 @@ public class EarthquakeActivity extends AppCompatActivity implements LoaderManag
         if (network != null && network.isConnectedOrConnecting()) {
             //If there is a connection, initialize the Loader
             Log.i("EarthquakeActivity", "onCreate() started & Loader is Force-initialized!");
+            spinningWheel.setVisibility(View.VISIBLE);
             getLoaderManager().initLoader(1, null, this).forceLoad();
         } else {
             empty.setText(R.string.NoConnection);
